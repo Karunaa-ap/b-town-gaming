@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Staff Panel — B-Town Gaming</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/">B-Town Gaming<span class="city">Staff</span></a>
+      <button class="btn-ghost" id="logoutBtn" style="display:none;">Log out</button>
+    </div>
+  </header>
+
+  <div class="wrap admin-shell">
+    <div id="loginView" class="login-card">
+      <h2>Staff login</h2>
+      <div class="field">
+        <label for="pw">Password</label>
+        <input id="pw" type="password" placeholder="••••••••" />
+      </div>
+      <p class="error-text" id="loginErr"></p>
+      <button class="btn-primary" id="loginBtn" style="width:100%;">Log in</button>
+    </div>
+
+    <div id="dashView" style="display:none;">
+      <div class="admin-toolbar">
+        <input type="date" id="dateInput" />
+        <span style="color:var(--text-muted); font-size:0.85rem;">Click an open slot to log a walk-in. Click a booked slot for details.</span>
+        <button class="btn-ghost" id="backupBtn" style="margin-left:auto; font-size:0.78rem; padding:7px 12px;">⬇ Backup all bookings</button>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-tile"><div class="num" id="statOccupied">0</div><div class="lbl">Slots filled</div></div>
+        <div class="stat-tile"><div class="num" id="statOnline">0</div><div class="lbl">Online bookings</div></div>
+        <div class="stat-tile"><div class="num" id="statWalkin">0</div><div class="lbl">Walk-ins</div></div>
+        <div class="stat-tile"><div class="num" id="statRevenue">—</div><div class="lbl">Est. revenue</div></div>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-grid" id="grid"></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="modal">
+    <div class="modal" id="modalInner"></div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

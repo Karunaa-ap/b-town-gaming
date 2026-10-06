@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>B-Town Gaming — Butwal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/">B-Town Gaming<span class="city">Butwal</span></a>
+      <a class="btn-ghost" href="/admin.html" style="text-decoration:none; font-size:0.78rem; padding:7px 12px;">Staff</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="hero">
+      <h1>Press Start, Butwal 🎮</h1>
+      <p id="heroTagline">2 PS5 setups · 2 PC rigs · 1 Netflix &amp; Chill room for couples</p>
+      <div class="badges">
+        <span class="hours"><span class="pulse-dot"></span> Open daily 12:00 PM – 8:00 PM</span>
+        <span class="ticker hidden" id="liveTicker"></span>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Choose a date</div>
+      <div class="date-row" id="dateRow"></div>
+    </section>
+
+    <section>
+      <div class="section-label">Choose a station</div>
+      <div class="station-grid" id="stationGrid"></div>
+    </section>
+
+    <section>
+      <div class="section-label">Available times</div>
+      <div class="slot-grid" id="slotGrid"></div>
+      <p class="error-text" id="slotError"></p>
+    </section>
+  </div>
+
+  <div class="summary-bar hidden" id="summaryBar">
+    <div class="info" id="summaryInfo">—</div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span class="price" id="summaryPrice"></span>
+      <button class="btn-primary" id="continueBtn">Continue</button>
+    </div>
+  </div>
+
+  <footer>
+    Walk-ins always welcome too. Questions? Call <span id="footerPhone"></span> · B-Town Gaming, Butwal
+  </footer>
+
+  <div class="modal-backdrop hidden" id="modal">
+    <div class="modal" id="modalInner">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="booking.js"></script>
+</body>
+</html>

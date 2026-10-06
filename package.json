@@ -1,0 +1,14 @@
+{
+  "name": "gaming-zone-booking",
+  "version": "1.0.0",
+  "description": "Booking site for a gaming lounge (PS5, PC, Netflix room) in Butwal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemailer": "^6.9.14"
+  }
+}
