@@ -1,7 +1,7 @@
 const VENUE_NAME = "B-Town Gaming";
 const TAGLINE = "Butwal's home base for boss fights & chill nights";
 const CITY = "Butwal";
-const CONTACT_PHONE = "98XXXXXXXX";
+const CONTACT_PHONE = "9841346938";
 const CURRENCY = "NPR";
 
 const OPEN_HOUR = 12;

@@ -76,6 +76,13 @@
     return `${hour12}:00 ${period}`;
   }
 
+  function addDays(dateStr, n) {
+    const [y, m, d] = dateStr.split("-").map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    dt.setUTCDate(dt.getUTCDate() + n);
+    return dt.toISOString().slice(0, 10);
+  }
+
   function dateLabel(dateStr, todayStr) {
     const d = new Date(dateStr + "T00:00:00");
     const dow = d.toLocaleDateString("en-US", { weekday: "short" });
@@ -101,9 +108,7 @@
   function renderDates() {
     const days = [];
     for (let i = 0; i < state.config.bookingWindowDays; i++) {
-      const d = new Date();
-      d.setDate(d.getDate() + i);
-      days.push(d.toISOString().slice(0, 10));
+      days.push(addDays(state.config.today, i));
     }
     el.dateRow.innerHTML = "";
     days.forEach((dateStr) => {
@@ -161,13 +166,12 @@
     const data = await res.json();
     state.bookings = data.bookings || [];
     renderSlots();
-    updateLiveTicker();
+    updateLiveTicker(data.today, data.nowHour);
   }
 
-  function updateLiveTicker() {
-    const { today, openHour, closeHour } = state.config;
-    const nowHour = new Date().getHours();
-    if (state.selectedDate !== today || nowHour < openHour || nowHour >= closeHour) {
+  function updateLiveTicker(actualTodayInButwal, nowHour) {
+    const { openHour, closeHour } = state.config;
+    if (state.selectedDate !== actualTodayInButwal || nowHour < openHour || nowHour >= closeHour) {
       el.liveTicker.classList.add("hidden");
       return;
     }

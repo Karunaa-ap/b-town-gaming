@@ -17,16 +17,33 @@ function requireAdmin(req, res, next) {
   return res.status(401).json({ error: "Not authenticated" });
 }
 
+const VENUE_TZ = "Asia/Kathmandu";
+const nepalDateFormatter = new Intl.DateTimeFormat("en-CA", { timeZone: VENUE_TZ });
+const nepalHourFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: VENUE_TZ,
+  hour: "numeric",
+  hourCycle: "h23",
+});
+
 function todayStr() {
-  return new Date().toISOString().slice(0, 10);
+  return nepalDateFormatter.format(new Date());
+}
+
+function nowHourInNepal() {
+  return Number(nepalHourFormatter.format(new Date()));
+}
+
+function addDaysToDateStr(dateStr, days) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  dt.setUTCDate(dt.getUTCDate() + days);
+  return dt.toISOString().slice(0, 10);
 }
 
 function isValidDate(date) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return false;
   const min = todayStr();
-  const max = new Date(Date.now() + config.BOOKING_WINDOW_DAYS * 86400000)
-    .toISOString()
-    .slice(0, 10);
+  const max = addDaysToDateStr(min, config.BOOKING_WINDOW_DAYS);
   return date >= min && date <= max;
 }
 
@@ -60,7 +77,12 @@ app.get("/api/config", (req, res) => {
 app.get("/api/availability", (req, res) => {
   const { date } = req.query;
   if (!isValidDate(date)) return res.status(400).json({ error: "Invalid or out-of-range date" });
-  res.json({ date, bookings: store.forDate(date).map(publicBooking) });
+  res.json({
+    date,
+    bookings: store.forDate(date).map(publicBooking),
+    today: todayStr(),
+    nowHour: nowHourInNepal(),
+  });
 });
 
 app.post("/api/bookings", (req, res) => {
