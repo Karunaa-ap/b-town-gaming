@@ -21,11 +21,12 @@
     <div id="loginView" class="login-card">
       <h2>Staff login</h2>
       <div class="field">
-        <label for="pw">Password</label>
-        <input id="pw" type="password" placeholder="••••••••" />
+        <label for="pw">Staff PIN</label>
+        <input id="pw" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" placeholder="••••••" style="font-size:1.4rem; letter-spacing:0.3em; text-align:center;" />
       </div>
       <p class="error-text" id="loginErr"></p>
       <button class="btn-primary" id="loginBtn" style="width:100%;">Log in</button>
+      <p style="color:var(--text-muted); font-size:0.75rem; text-align:center; margin-top:14px;">Stays logged in on this device for 90 days</p>
     </div>
 
     <div id="dashView" style="display:none;">

@@ -4,16 +4,14 @@ const path = require("path");
 const config = require("./config");
 const store = require("./store");
 const email = require("./email");
+const auth = require("./auth");
 
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-const adminTokens = new Set();
-
 function requireAdmin(req, res, next) {
-  const token = req.get("x-admin-token");
-  if (token && adminTokens.has(token)) return next();
+  if (auth.verifyToken(req.get("x-admin-token"))) return next();
   return res.status(401).json({ error: "Not authenticated" });
 }
 
@@ -136,9 +134,7 @@ app.post("/api/admin/login", (req, res) => {
   if (password !== config.ADMIN_PASSWORD) {
     return res.status(401).json({ error: "Wrong password" });
   }
-  const token = crypto.randomUUID();
-  adminTokens.add(token);
-  res.json({ token });
+  res.json({ token: auth.createToken() });
 });
 
 app.get("/api/admin/bookings", requireAdmin, (req, res) => {
