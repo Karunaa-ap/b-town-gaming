@@ -17,7 +17,7 @@ const RESOURCES = [
   { id: "netflix", name: "Netflix & Chill Room", type: "netflix", pricePerHour: 350, seats: 2, vibe: "No judgment, just snacks" },
 ];
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "changeme123";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "karunapandey4845@gmail.com";
 
 module.exports = {

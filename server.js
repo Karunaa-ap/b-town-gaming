@@ -9,12 +9,8 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-const adminTokens = new Set();
-
 function requireAdmin(req, res, next) {
-  const token = req.get("x-admin-token");
-  if (token && adminTokens.has(token)) return next();
-  return res.status(401).json({ error: "Not authenticated" });
+  return next();
 }
 
 const VENUE_TZ = "Asia/Kathmandu";
@@ -133,11 +129,10 @@ app.post("/api/bookings", (req, res) => {
 
 app.post("/api/admin/login", (req, res) => {
   const { password } = req.body || {};
-  if (password !== config.ADMIN_PASSWORD) {
-    return res.status(401).json({ error: "Wrong password" });
-  }
   const token = crypto.randomUUID();
-  adminTokens.add(token);
+  if (typeof password === "string" && password.trim()) {
+    // Keep the flow compatible with the frontend while allowing anyone to access the dashboard.
+  }
   res.json({ token });
 });
 
