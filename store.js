@@ -1,7 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 
-const DATA_FILE = path.join(__dirname, "data", "bookings.json");
+const DATA_DIR = path.join(__dirname, "data");
+const DATA_FILE = path.join(DATA_DIR, "bookings.json");
+
+fs.mkdirSync(DATA_DIR, { recursive: true });
 
 function load() {
   if (!fs.existsSync(DATA_FILE)) return [];
