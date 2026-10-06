@@ -266,5 +266,5 @@
     });
   }
 
-  enterDashboard().catch(logout);
+  if (state.token) enterDashboard().catch(logout);
 })();
